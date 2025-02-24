@@ -1,4 +1,8 @@
-//Save the buttons as constants
+// Define a function for the alert message
+function showAlert1to5() {
+    alert("You may only write anything between 1 and 5 :)");
+}
+
 //Input
 const inputField = document.querySelector("#user-guess");
 
@@ -29,10 +33,14 @@ inputField.addEventListener("input", () => {
     let value = parseInt(inputField.value);
     if (value < 1) {
         inputField.value = 1;
+        showAlert1to5();
     } else if (value > 5) {
         inputField.value = 5;
+        showAlert1to5();
     }
 })
+
+
 
 
 //Buttons
@@ -59,16 +67,18 @@ guessButton.addEventListener("click", ()=>{
     */
     if (parseInt(inputField.value) === randomNumber) {
         console.log("TRUE!");
-        guessResult.textContent = "You guessed right!!!"
-        string = "AWESOME!!!";
+        guessResult.innerHTML = "You guessed right!!!<br>AWESOME!!!<br>Guess a new number!";
+        highScore.textContent++
+
+        // Generate a new random number whenever guessed number is correct
+        randomNumber = generateNumber();
+        console.log(`The new random number is ${randomNumber}`)
     } else if (parseInt(inputField.value) > randomNumber){
         console.log("FALSE!");
-        guessResult.textContent = "You were totally wrong";
-        string = "The number is too high";
+        guessResult.innerHTML = "You were totally wrong<br>The number is too high";
     } else if (parseInt(inputField.value) < randomNumber) {
         console.log("FALSE!");
-        guessResult.textContent = "You were totally wrong";
-        string = "the number is too low";
+        guessResult.innerHTML = "You were totally wrong<br>the number is too low";
     }
     lowerHigher.textContent = string;
 });
@@ -91,4 +101,8 @@ reset.addEventListener("click", () => {
     console.log(`The random number is ${randomNumber}`)
 })
 
-// High Score ( work in process! Still thinking.)
+// High Score
+const highScore = document.querySelector("#highscore");
+highScore.textContent = 0;
+// Added function for add 1 to the score for correct guess
+// See line 64.
